@@ -1,0 +1,268 @@
+{%load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'forms/reg.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <title>Document</title>
+    <link href="{% static 'home/img/favicon.ico' %} " rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Lora:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'home/lib/animate/animate.min.css%' %}" rel="stylesheet">
+    <link href="{% static 'home/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'home/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'home/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <div class="bg-img">
+        <div class="content">
+            <header>Regestration Form</header>
+          
+            <form  class="reg-form" method="post" class="form-group" novalidate style="color: white">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+
+
+                <div class="field">
+                    <input type="submit" value="SIGN UP">
+                </div>
+            </form>
+            
+           
+            <p class="login">
+                Or Sign Up with
+            </p>
+            <div class="links">
+                <div class="facebook">
+                    <i class="fab fa-google-f"><span>Google</span></i>
+                </div>
+                <div class="instagram">
+                    <i class="fab fa-facebook-f"><span>Facebook</span></i>
+                </div>
+            </div>
+            <div class="signup">
+                Already have account?
+                <a href="../signin/">Signin Now</a>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        const pass_field = document.querySelector('.pass-key');
+        const showBtn = document.querySelector('.show');
+        showBtn.addEventListener('click', function () {
+            if (pass_field.type === "password") {
+                pass_field.type = "text";
+                showBtn.textContent = "HIDE";
+                showBtn.style.color = "#3498db";
+            } else {
+                pass_field.type = "password";
+                showBtn.textContent = "SHOW";
+                showBtn.style.color = "#222";
+            }
+        });
+
+        const pass_field2 = document.querySelector('.pass-key2');
+        const showBtn2 = document.querySelector('.show2');
+        showBtn2.addEventListener('click', function () {
+            if (pass_field2.type === "password") {
+                pass_field2.type = "text";
+                showBtn2.textContent = "HIDE";
+                showBtn2.style.color = "#3498db";
+            } else {
+                pass_field2.type = "password";
+                showBtn2.textContent = "SHOW";
+                showBtn2.style.color = "#222";
+            }
+        });
+
+    </script>        
+    </body>
+    <style>
+       *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+.bg-img{
+  background: url('https://pibig.info/uploads/posts/2022-12/1670038893_2-pibig-info-p-zadnii-fon-pole-pinterest-2.jpg');
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+.bg-img:after{
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+}
+.content{
+
+  position: relative;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  text-align: center;
+  padding: 30px 15px;
+  width: 370px;
+  transform: translate(-50%,-50%);
+  background: rgba(255,255,255,0.04);
+  box-shadow: -1px 4px 28px 0px rgba(0,0,0,0.75);
+}
+.content header{
+  color: white;
+  font-size: 33px;
+  font-weight: 600;
+  margin: 0 0 35px 0;
+  font-family: 'Montserrat',sans-serif;
+}
+.field{
+    
+  position: relative;
+  height: 45px;
+  width: 100%;
+  display: flex;
+  background: rgba(255,255,255,0.94);
+}
+.field span{
+  color: #222;
+  width: 40px;
+  line-height: 45px;
+}
+.field input{
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #222;
+  font-size: 16px;
+  font-family: 'Poppins',sans-serif;
+}
+.space{
+  margin-top: 16px;
+}
+.show,.show2{
+  position: absolute;
+  right: 13px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #222;
+  display: none;
+  cursor: pointer;
+  font-family: 'Montserrat',sans-serif;
+}
+.pass-key:valid ~ .show{
+  display: block;
+}
+.pass-key2:valid ~ .show2{
+  display: block;
+}
+.pass{
+  text-align: left;
+  margin: 10px 0;
+}
+.pass a{
+  color: white;
+  text-decoration: none;
+  font-family: 'Poppins',sans-serif;
+}
+.pass:hover a{
+  text-decoration: underline;
+}
+.field input[type="submit"]{
+  background: #3498db;
+  border: 1px solid #2691d9;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Montserrat',sans-serif;
+}
+.field input[type="submit"]:hover{
+  background: #2691d9;
+}
+.login{
+  color: white;
+  margin: 20px 0;
+  font-family: 'Poppins',sans-serif;
+}
+.links{
+  display: flex;
+  cursor: pointer;
+  color: white;
+  margin: 0 0 20px 0;
+}
+.facebook,.instagram{
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  margin-left: 10px;
+}
+.facebook{
+  margin-left: 0;
+  background: #4267B2;
+  border: 1px solid #3e61a8;
+}
+.instagram{
+  background: #E1306C;
+  border: 1px solid #df2060;
+}
+.facebook:hover{
+  background: #3e61a8;
+}
+.instagram:hover{
+  background: #df2060;
+}
+.links i{
+  font-size: 17px;
+}
+i span{
+  margin-left: 8px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 16px;
+  font-family: 'Poppins',sans-serif;
+}
+.signup{
+  font-size: 15px;
+  color: white;
+  font-family: 'Poppins',sans-serif;
+}
+.signup a{
+  color: #3498db;
+  text-decoration: none;
+}
+.signup a:hover{
+  text-decoration: underline;
+}
+   
+    
+        </style>
+</html>
