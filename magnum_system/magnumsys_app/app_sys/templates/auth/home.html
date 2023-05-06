@@ -67,23 +67,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About Us</a>
-                    <a href="product.html" class="nav-item nav-link">Products</a>
+                    <a href="" class="nav-item nav-link active">Home</a>
+                   
+                    
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
                         <div class="dropdown-menu m-0">
                             {% for i in categories %}
-                            <a href="" class="dropdown-item">{{i.name|title}}</a>
+                            <a href="{%url 'home'%}" class="dropdown-item">{{i.name|title}}</a>
 
                             {% endfor %}
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                   
                 </div>
                 <div class="d-none d-lg-flex ms-2">
-                    <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
-                        <small class="fa fa-search text-body"></small>
+                    <form action="{%url 'search'%}" method="get"  class="form-inline">
+                        <input class="form-control mr-sm-0" type="search" type="text" name="q" placeholder=" Search Items">
+                        <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                        
                     </a>
                    
 
@@ -96,17 +99,17 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                          {% if username == 'magnum_admin' %}
+                          {% if username == 'magnum_admin' %}   
                           <li><button class="btn btn-light"><a class="dropdown-item" href="{% url  'crud' %}">Admin Panel</a></button></li>
                           {%endif%}
 
                           {% if user.is_authenticated %}
                           <li><button class="btn btn-light"><a class="dropdown-item" href="../profile/">Profile</a></button></li>
                           
-                          <li><button class="btn btn-light"><a class="dropdown-item" href="../signin/">Sign Out</a></button></li>
+                          <li><button class="btn btn-light"><a class="dropdown-item" href="{%url 'signout'%}">Sign Out</a></button></li>
                           {% else %}
-                          <li><a class="dropdown-item" href="../signin/">Sign In</a></li>
-                          <li><a class="dropdown-item" href="../signup/">Sign Up</a></li>
+                          <li><a class="dropdown-item" href="{%url 'signin'%}">Sign In</a></li>
+                          <li><a class="dropdown-item" href="{%url 'signup'%}">Sign Up</a></li>
 
                           {%endif%}
                           
@@ -121,6 +124,9 @@
         </nav>
     </div>
     <!-- Navbar End -->
+    
+
+
 
 
     <!-- Carousel Start -->
@@ -242,16 +248,28 @@
                 </div>
                 <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
                     <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-                        <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2 active" data-bs-toggle="pill"
-                                href="#tab-1">Vegetable</a>
-                        </li>
-                        <li class="nav-item me-2">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-2">Fruits </a>
-                        </li>
-                        <li class="nav-item me-0">
-                            <a class="btn btn-outline-primary border-2" data-bs-toggle="pill" href="#tab-3">Fresh</a>
-                        </li>
+                      
+<form method="GET" action="{% url 'filter' %}" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <label for="category">Category:</label>
+        <select name="category" id="category" class="form-control">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.slug }}" {% if category.slug == request.GET.category %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group mr-2">
+        <label for="min_price">Min Price:</label>
+        <input type="number" name="min_price" id="min_price" class="form-control" placeholder="Minimum Price" value="{{ request.GET.min_price }}">
+    </div>
+    <div class="form-group mr-2">
+        <label for="max_price">Max Price:</label>
+        <input type="number" name="max_price" id="max_price" class="form-control" placeholder="Maximum Price" value="{{ request.GET.max_price }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Apply Filter</button>
+</form>
+                        
                     </ul>
                 </div>
             </div>
@@ -260,6 +278,7 @@
                 <div id="tab-1" class="tab-pane fade show p-0 active">
                     <div class="row g-4">
                         {% for item in items %}
+                        {%if  item.in_active  %}
                         <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="product-item">
                                 <div class="position-relative bg-light overflow-hidden">
@@ -284,6 +303,7 @@
                                 </div>
                             </div>
                         </div>
+                        {%endif%}
                         {%endfor%}
                         <tbody>
                             {% for employee in employees %}
@@ -310,6 +330,12 @@
                 
            
                 <!-- Product End -->
+
+
+
+                <div>
+                    <a href="{%url 'publish'%}"><button>You can add ur products</button></a>
+                </div>
 
 
                 <!-- Firm Visit Start -->

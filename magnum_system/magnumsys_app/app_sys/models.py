@@ -1,8 +1,21 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    age=models.DecimalField(max_digits=3,decimal_places=0,default=0)
+    city=models.CharField(max_length=200)
+    bio = models.TextField()
+    profile_picture = models.ImageField(upload_to='images/', blank=True)
+   
+    def __str__(self):
+        return self.user.username
+     
 
 
 
@@ -30,10 +43,14 @@ class Item(models.Model):
     slug= models.SlugField(max_length=255)
     price=models.DecimalField(max_digits=30, decimal_places=0,default=True)
     in_stock=models.BooleanField(default=True)
-    in_active=models.BooleanField(default=True)
+    in_active=models.BooleanField(default=False)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
     recipe=models.FileField(upload_to='recipe/',default=True)
+    last_viewed = models.DateTimeField(auto_now=True)
+
+    
+    
 
     class Meta:
         verbose_name_plural = 'Item'

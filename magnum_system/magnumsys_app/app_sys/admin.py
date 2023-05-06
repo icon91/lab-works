@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CategoryList,Item
+from .models import CategoryList,Item,Profile,User
 
 @admin.register(CategoryList)
 class CategoryAdmin(admin.ModelAdmin):
@@ -14,3 +14,9 @@ class ItemAdmin(admin.ModelAdmin):
 
     prepopulated_fields= {'slug':('title',)}
 
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display=['user','age','city','bio','profile_picture']
+    

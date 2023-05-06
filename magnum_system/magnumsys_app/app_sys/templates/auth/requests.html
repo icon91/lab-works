@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <table class="w3-table">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Categories</th>
+                <th>Image</th>
+                <th>Recipe</th>
+                <th>jh</th>
+                <th>asd</th>
+
+            </tr>
+            {%for x in item_data%}
+            <tr>
+                <td scope="row">{{forloop.counter}}</th>
+                <td>{{x.title}}</td>
+                <td>{{x.price}}</td>
+                <td>{{x.description}}</td>
+                <td>{{x.categorylist}}</td>
+                <td><img class="img-fluid w-20" src="{{x.image.url}}" width="50" height="50" alt=""></td>
+                <td><a href="{{x.recipe.url}}"><button>Recipe for - {{x.title}}</button></a></td>
+                <td>
+
+
+                    <form action="{% url 'delete' %}" method="post">
+                        {%csrf_token%}
+                        <input type="hidden" name="id" value="{{x.id}}">
+                        <input type="submit" value="Delete" style="color: white; background-color: red"
+                            class="btn-btn-dan-danger">
+                    </form>
+
+
+                </td>
+                <td> <a href="{% url 'edit' x.id %}">EDIT</a></td>
+            </tr>
+            {%endfor%}
+        </table>
+
+        <br>
+        <a href="{% url 'create' %}" id='add'><button style="color: white; background-color: aquamarine;">Add new
+                item</button></a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if request.user.is_superuser %}
+    <div>
+        <ul>
+            {%for x in item %}
+            {% if x.created_by != magnum_admin %}
+            <li>
+                <a href="home/item/{{x.slug}}">{{x.title}}</a>
+                <br>
+                <a href="{%url 'home'%}">Accept</a>
+                <br>
+                <a href="auth/reject/{{x.slug}}">Reject</a>
+            </li>
+            {%endif%}
+            {%endfor%}
+        </ul>
+    </div>
+    {%endif%}
+</body>
+</html>

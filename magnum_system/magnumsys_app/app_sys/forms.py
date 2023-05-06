@@ -1,6 +1,6 @@
 from django import forms
-from .models import Item,CategoryList
-from django import forms  
+from .models import Item,CategoryList,Profile,User
+from django import forms
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
@@ -11,6 +11,11 @@ from django.contrib.auth.forms import AuthenticationForm
 
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+     
+        fields = ['age', 'city', 'bio', 'profile_picture']
 
 
 class SignupForm(forms.Form):
@@ -82,6 +87,12 @@ class SigninForm(forms.Form):
 
 
 
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model=Item
+        fields='__all__'
+
+
 
 
 
@@ -99,6 +110,20 @@ class CreateForm(forms.ModelForm):
             
         }
 
+
+        
+
+
+class CreateUserForm(forms.ModelForm):
+   
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
+    pass1 = forms.CharField(required=True, widget=forms.PasswordInput())
+    
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'pass1']
 
 
 
